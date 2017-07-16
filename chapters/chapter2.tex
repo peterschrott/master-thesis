@@ -1,17 +1,58 @@
 \chapter{Fundamentals and Related Work\label{cha:chapter2}}
 
-%%%%%%%%%%%%%%%
-Electronic data processing is applied math and relies therefor on data of a certain, deterministic structure. In mathematics and computer science such rules of data representation are called canonical or normal form. Canonicalization is the discipline of transforming data of possible different forms of representation into a standardized form. An illustrative example of canonicalization is the representation of a boolean variable described in the XML schema type definition. By definition a boolean variable supports binary logic representation, meaning that some state or flag can either be true or false. The set of possible literals might contain: 1, 0, true and false. The XML schema type definition defines the canonical form of boolean as true and false, whereas 1 can be mapped to true and 0 to false. Data in a normalized form can be transfered in any other form.
+\section{Fundamentals in data unification\label{sec:unification}}
 
-The foundation of the idea of storing large data in a reusable format were captured by Edgar F. Codd in 1970 with his proposal for database normalization. The concept behind the proposal is to break the information down into entities with attributes and describe relations among them. A second and third version of database normalization followed. The entities person and address can be considered as example. The person entity has the attributes surname and name, the address entity the attributes street, zip code and city. In addition the 
-%%%%%%%%%%%%%%%%%%%%
+Electronic data processing underlies applied math and relies therefor on data of a certain, deterministic structure. In mathematics and computer science such rules of data representation are called canonical or normal form. Canonicalization is the discipline of transforming data of possible different forms of representation into a standardized form. An illustrative example of canonicalization is the representation of a boolean variable described in the XML schema type definition. By definition a boolean variable supports binary logic representation, meaning that some state or flag can either be true or false. The set of possible literals might contain: 1, 0, true and false. The XML schema type definition defines the canonical form of boolean as true and false, whereas 1 can be mapped to true and respectively 0 to false. Data in a normalized form can be transfered in any other form.
+\\\\
+The foundation of the idea of storing large data in a reusable format were captured by Edgar F. Codd in 1970 with his proposal for database normalization. The concept behind the proposal is to break the information down into entities with attributes and describe relations among them. A second and third version of database normalization followed and proposed a higher granularity. The technique of data normalization is state of the art in rational database systems. Such a system stores data in a table format, where rows correspond to entities and columns to their attributes. Considering the entities person and address as an example. The person entity has the attributes surname and name, the address entity the attributes street, zip code and city. In addition the person entity has a reference to the address entity, thus a an address can be related to a person. This relation is realized by a unique key. The system enforces the entity definition, i.e. its schema and the predefined data types, and the relationship constraints strictly. Relationship modeling plays also a fundamental role in other data base and data management systems but are often not enforced on system level.
+\\\\
+% https://db-engines.com/en/blog_post/23
+In contrast to relational databases, normalization is not mandatory in non rational, also call no SQL databases. This kind of databases are mostly used for web applications and in the field of big data. The same applies to entity relationships as the core concept of no SQL databases aims for de-normalized data storage. Considering the person-address example from above, all attributes of a person entity are stored with it, including its address. No SQL databases exist with a schema-leas approach, meaning there is no predefinition of attributes and corresponding data types. This also enables changes of the schema over time in the cardinality of attributes as well as their type. In the person-address example this means that the address is a non mandatory field and the zip code can be stored as number or string. Document-orientated databases, key-value storages and graph databases are the three most common no SQL databases.  Limitations are only set by the user's definition and imagination. This flexibility enormously supports the initially claimed chaotic data storage, though it is often limited by schema definitions on domain level. 
+\\\\
+Schemas help to maintain a understandable structure of data and underly a certain format. They add determinism to data and make them less error prone. Schemas vary in their strictness, also formats allow different levels of precision. CSV, JSON and XML are the most commonly used formats for data interchange, whereas JSON holds a distinguished position nowadays. From a top down view on entity level they define the set of attributes an information entity has. In addition it is possible to define whether a field is mandatory or not. Furthermore a schema can be designed such that it enforces entity relations. On attribute level the most common specification is the data type, whereas the information if a field can be unset, i.e. nullable, can be provided too. Data types are usually not unique through different schema formats, but mappings usually exist. For a higher quality of data the individual type of an attribute can be restricted through ranges or enumerations, e.g. the value of field score can only accept integers from 1 to 5. Furthermore it is to distinguish between externally defined and self-contained schemas. External definition or external enforcement is the approach that drives rational databases and schema-full data storages. Is the schema woven with the actual data, one can speak about self-contained schemas. Schema-less storages benefit from self-contained schemas. Using such, data integrity it is for the application level to maintain.
+\\\\
+The canonical form standardizes data representation, whereas normalization and schema definition add some additional information to it. A predefined cardinality of attributes as well as the respective types and value ranges can be considered as meta-data and make the data therefor more understandable by human as well as by machines. 
 
+\section{Data storage technologies and data formats\label{sec:storage}}
 
-This section is intended to give an introduction about relevant terms, technologies and standards in the field of X. You do not have to explain common technologies such as HTML or XML. 
+In data driven applications the data are commonly fetched from a source. Sources in this circumstances are wide-ranging. A few to mention here are:
+\begin{itemize}
+  \item Purely file based, e.g. CSV files
+  \item Database systems (rational database management systems, key-value stores, document-orientated)
+  \item REST interfaces
+  \item Web sockets
+  \item Message queues\\
+\end{itemize}
+
+\noindent\textbf{Purely file based} have almost no restrictions regarding the information format. The format is often defined on domain level. Human readable formats like CSV, JSON, XML or custom formats are some of the most common data structures. Additionally binary formats exists but are more often used in closed systems.
+\\\\
+\textbf{Database systems} provide more boundaries when it comes to the data format. Database management system can be divided in schema-orientated and schema-less systems. The former, by definition, enforces a certain schema for individual information entities. In rational database systems most often a table format is chosen, but also in key-value stores the format of the value might be enforced by the system. Schema-less systems, also often document-orientated, bring more flexibility. The format, in many cases JSON, has to be defined per type of information entities. The actual schema, i.e. definition of attributes, is not enforced in such systems.
+\\\\
+\textbf{REST interfaces} deliver data in most cases in human readable format. Some exception exist that expose binary information. The so called media type, also MIME type or content type, is officially standardized by the Internet Assigned Numbers Authority (IANA). Dedicated content delivery APIs mostly utilize pain text, JSON or XML. For memory reduction zipped data are shipped. 
+\\\\
+\textbf{Web sockets} are originally designed for the communication between browsers and web servers and lower network layer, TCP, as REST interfaces for data exchange. Projects exists where web sockets are used for data transfer and enables a streaming unlike REST, which works on a batch basis. Regarding data formats, web sockets apply similarly loose restrictions regarding formats as file based data sources does.
+\\\\
+\textbf{Message queues} are old techniques but embrace over the last years enormously. The trends shifts towards data streaming and directly process them rather to store data over the long-term. Often used for connecting systems, message queues do most often not enforce a specific data formats also similar to file based sources.
+
+\section{State analysis of heterogeneous data storage\label{sec:stateanalysis}}
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.9\textwidth]{quality-problems.pdf}\\
+  \caption{Categorization of data quality problems}\label{fig:qualityproblems}
+\end{figure}
+
+In this section digitally available data are analyzed with respect to their quality as well as considering their source. Figure \ref{fig:qualityproblems} illustrates a categorization of the data quality issues into four sub problems. The breakdown shows that the devision correlates with the above stated classification of data storage principles. Therefor a general distinction between single and multi source problems is possible. In both categories a distinction on entity level can be made. 
+\\\\
+Single source problems consider malformed data within one storage system. Schema-less systems can be considered as more error prone than systems enforcing a schema. In the former unsatisfied constraints occur whereas in the latter additionally missing attributes and varying entity nesting arise. Those problems are mostly schema related and occur because of poorly designed schemas, technical depts and negligence of specifications. Attribute level specific issues can only partly covered by schema definitions. This holds for missing vales but not for misspellings. 
+\\\\
+All problems from a single source environment can also be transfered to a multi source environment. 
 
 \section{Technologies \label{sec:tech}}
 
 This section describes relevant technologies, starting with X followed by Y, concluding with Z.
+
+* ETL
 
 \subsection{Technology A\label{sec:aaa}}
 
