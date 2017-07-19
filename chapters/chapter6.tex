@@ -37,10 +37,15 @@ The independence of the system from actual running instances of the named databa
 
 \subsection{Scalability on domain level}
 
+The extendability of the provided library is a great win for unifying data across several sources. This is mainly possible through the quick extension of input adapters as well as the stepwise approach of parsing data. The introduction of raw entities gives space for input adapters to add more sources, as well as stability to the downstream parsing logic on the other hand. The pre-generalization of data plays a significant role in the flexible approach of the framework and the developed concept of it.
+\\\\
+An re-usage of the scope in this work created framework and its concrete implementation in the domain of food products showed that is possible to scale the framework over further domains. This is enabled by the abstraction of data problems on a meta level. The domain specifics can be realized on a higher level ob abstraction which does not interfere with the concept of the framework itself.
+
 \subsection{Scalability on data throughput level}
 
-The introduction of this work gives insights of about the novel amount of data available nowadays. The choice of the container framework in section \ref{sec:env} pointed out that from this work of perspective not requirement for a technical scalability is defined. Having said this, 
-
+The introduction of this work gives insights of about the novel amount of data available nowadays. The choice of the container framework in section \ref{sec:env} pointed out that from this work of perspective not requirement for a technical scalability is defined. Having said this, it is also important to say that the proposed framework and the stated concept does indeed support the technical scaling. This is mainly thank to the chosen underlying transportation layer, Kafka. As Kafka is applicable in distributed systems and the framework on top of it is designed such that the data for each information entity to be parsed lives in a different topic, the application can simply be scaled by adding additional parsing nodes running the same application.
+\\\\
+The concept describes the abstraction of the framework implementation of the container framework, as well as the data transpiration layer. If the demand for an highly distributed data parsing and feature extraction system arises, the proposed framework can be easily ported to frameworks like Apache Flink or Apache Spark. The concrete implementation of the UDFs are simple map functions which can be simply ported to different systems.
 
 
 

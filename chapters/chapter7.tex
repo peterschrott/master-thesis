@@ -1,35 +1,31 @@
 \chapter{Conclusion\label{cha:chapter7}}
-The final chapter summarizes the thesis. The first subsection outlines the main ideas behind Component X and recapitulates the work steps. Issues that remained unsolved are then described. Finally the potential of the proposed solution and future work is surveyed in an outlook.
+
+The final chapter summarizes the overall work and the approach of this thesis of finding an suggestion for a framework that enables automated feature extraction on semi-structured data. A conclusion about the suggested framework is made, encountered problems are discussed and a future outlook is given.  
 
 \section{Summary\label{sec:summary}}
 
-Explain what you did during the last 6 month on 1 or 2 pages!
-\\
-\\
+Working with heterogeneous data requires knowledge about their nature. Analyzing the development of data storage over the last centuries gives deep insights and helps to understand the underlying problem. It gives a clear image about the common patterns used in different environments and systems, for instance the approach of SQL versus no SQL. The common understanding promotes the ability of generalizing the stated problem in chapter \ref{cha:chapter1}. Splitting up the data diversity into different categories leads to a straight forward but structured approach of dedicated solution finding. The categorization of entity level problems and attribute level problems in chapter \ref{cha:chapter2} helped to develop the two-step approach the framework applies finally. The abstraction of format problems, and varying schema problems shows again in the generic approach of the concept of the input adapter.
+\\\\
+Enriching a data stream processing engine with the ability of automated data parsing shows as a performing concept. Data processing frameworks nowadays provide a established tool set and a stable environment to extend them by custom libraries and finally build domain specific applications. A functional approach proofed to be the right choice in the domain of data processing and data parsing. The framework and its implementation unifies perfectly with available open source technologies. 
+\\\\
 \noindent The work done can be summarized into the following work steps
 
 \begin{itemize}
-		\item Analysis of available technologies
-		\vspace{-0.11in} 
-		\item Selection of 3 relevant services for implementation
-		\vspace{-0.11in} 
-		\item Design and implementation of X on Windows
-		\vspace{-0.11in} 
-		\item Design and implementation of X on mobile devices
-		\vspace{-0.11in} 
-		\item Documentation based on X
-		\vspace{-0.11in} 
-		\item Evaluation of the proposed solution
+\item Analysis of underlying data storage technologies
+\item Derivation of data problems and categorization of those
+\item Assessment of data problem categories
+\item Requirement engineering for a framework being able to handle formulated problems
+\item Concept design based on problem statements and requirements
+\item Implementation and evaluation of the concept in consideration of the defined requirements
 \end{itemize}
-
-\section{Dissemination\label{sec:dissemination}}
-
-Who uses your component or who will use it? Industry projects, EU projects, open source...? Is it integrated into a larger environment? Did you publish any papers?
 
 \section{Problems Encountered\label{sec:problems}}
 
-Summarize the main problems. How did you solve them? Why didn't you solve them?
+Mainly only problems with malformed data are encountered. This is mainly handled by the implemented requirement of a processing guarantee, but finally does not vanish the need of manual rework. Not all problems can be solved by adjusting the parsing pipeline. At this point is it to mention that the costs of malformed data is up to final use case of the environment the framework is operating in. The choice between or applying manual work for introducing the corrected version of the data into the downstream system or discarding un-processable data has to be made. The frameworks design and the set up concept still allows both options. 
 
 \section{Outlook\label{sec:outlook}}
 
-Future work will enhance Component X with new services and features that can be used ...
+Future work will raise the degree of automation of the implementation of the proposed framework. Concrete ideas and concepts are already in place to enrich the framework with machine learning techniques. More specifically speaking, a draft of extending the parsing pipeline by predictive component for data normalization is submitted. This will help to archive a higher degree of automation and minimize the usage of error prone static components.
+\\\\
+
+Concluding it can be said, that the suggested framework can handle 
