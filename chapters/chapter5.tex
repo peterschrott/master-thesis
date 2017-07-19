@@ -53,9 +53,16 @@ The implementation of the input adapter on defined library level boils down to t
 
 \subsection{Implementation of the loader component \label{ssec:loadercomponent}}
 
-A source specific data loader is a sub-class of the abstract generic class \textit{AbstractLoader}, compare figure xy, and hides away the format of the data source. A \textit{AbstractLoader} enforces the implementation of the data source, which is defined as a source in the Akka stream framework and can be used from the previously name Alpakka library. The function \textit{tryParseElement(.)} is a method sub for the actual UDF that enables the mapping of the source schema to the raw schema. The function \textit{handleFailureElement(.)} is called before and faulty element is written to the corresponding message queue in Kafka.
+A data source specific data loader is a sub-class of the abstract generic class \textit{AbstractLoader}, compare the class diagram in figure \ref{fig:importer-diagram}, and is meant to hide the actual format of the data source as well as to transform a source element of type \textit{IN} to raw type \textit{OUT}. A \textit{AbstractLoader} requires the implementation of the data source, which is defined as a \textit{Source}-object in the Akka stream framework and can be used from the previously name Alpakka library. The abstract function \textit{tryParseElement($\cdot$)} is a function sub for the actual UDF that enables the mapping of the source schema of type \textit{IN} to the raw schema of type \textit{OUT}. The function \textit{handleFailed($\cdot$)} is called before an faulty element is written to the corresponding message queue in Kafka and can be overwritten in the case the user wants to introduce custom error handling.
 
-As a concrete example a MongoDB loader was implemented and provided to the import adapter library. This example utilizes the reactive mongo driver which is utilized to implement the Akka stream source as the class \textit{AbstractLoader} requires.
+As a concrete example a MongoDB loader was implemented and provided to the import adapter library for generic usage. This example utilizes the ReactiveMongo driver which is used to implement the Akka stream source as the class \textit{AbstractLoader} requires.
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.9\textwidth]{importer-diagram}\\
+  \caption{Class diagram of data loader library and implementation}
+  \label{fig:importer-diagram}
+\end{figure}
 
 In the third level of the inheritance hierarchy the source and raw format needs to be specified. Here is also the implementation of the UDF located. The UDF takes a source specific element as parameter and must return a the defined raw entity.
 
@@ -72,11 +79,25 @@ This core approach is not only applicable for recipes and their ingredients. It 
 
 \subsection{Implementation of the sink component for raw entities}
 
-The second component from the input adapter is the sink. The implementation must specify the serializer\footnote{A serializer is a software component, that defines how an specific class instance is created from a an different input format.} that is used to write the raw entity to the Kafka topic. Additional the name of the topic is to be provided. The class diagram in figure XY show the abstract implementation with the two mentioned attributes. Internally the publisher for the Kafka topic is defined in the function \textit{store(.)}.
+The second component from the input adapter is the sink to the underlying transportation layer. It is abstracted by the class \textit{AbstractKafkaSink}, compare the class diagram in figure \ref{fig:importer-sink}. The implementation must specify the serializer\footnote{A serializer is a software component, that defines how an specific class instance is created from a an different input format.} that is used to write the raw entity to the Kafka topic. Additional the name of the topic is to be provided. The class diagram in figure XY show the abstract implementation with the two mentioned attributes. Internally the publisher for the Kafka topic is defined in the function \textit{store(.)}.
 
-\subsection{Implementation of the combining component}
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.3\textwidth]{importer-sink}\\
+  \caption{Class diagram of input adapter sink and implementation}
+  \label{fig:importer-sink}
+\end{figure}
 
-As a third component a object must be created that wires up the previous two components, this means to combine the data source, the UDF and the typed data sink as one entire processing pipeline. For this a runnable object is created inheriting the class \textit{AbstractImporterJob}. The class diagram can be seen in figure XY.  
+\subsection{Implementation of the adapter component}
+
+As a third component a object must be created that wires up the previous two components, this means to combine the data source, the UDF and the typed data sink as one entire processing pipeline. For this a runnable object is created inheriting the class \textit{AbstractImporterAdapter}. The class diagram can be seen in figure \ref{fig:import-adapter}.  
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.4\textwidth]{import-adapter}\\
+  \caption{Class diagram of input adapter sink and implementation}
+  \label{fig:import-adapter}
+\end{figure}
 
 \subsection{Evaluation on library on recipe example}
 The library for the import adapter is tested and showcased on the example of two sources of recipes. One source is a MongoDB collection \footnote{A collection in a MongoDB is equal to a table in a SQL database and contains a certain type of entities, named documents.}, the other source is a CSV file. Both sources contain recipes in a different schema. Therefor the input adapter library needed to be extend by a CSV loader (equal to the MongoDB source explained in section \ref{ssec:loadercomponent}). Concrete implementations of the both schemas as well s the raw recipe format are made and require very low programming work. The concrete implementation of the KafkaSink only needs to provide a serializer for the common raw recipe. The utilization of the play-json library reduced the work to a minimum. The final importer job for both sources is a minimalistic implementation combining respectively the source and the common raw recipe Kafka sink.
@@ -126,23 +147,52 @@ For example the string "Paprika, rot" will match the following universal ingredi
 \item Paprika
 \item edelsüßes Paprikapulver
 \end{enumerate}
-This mapping can be taken and verified in a downstream quality assurance check. After a positive feedback the raw ingredient string (here "Paprika, rot") is stored with the ingredient \textit{paprika}. Over time the data set contains several manifestations of one ingredient and enables better and more accurate search results. Over the long term systems knowledge base is a list of ingredient documents containing the universal name and possible different wordings for each ingredient. 
-\\\\
+This mapping can be taken and verified in a downstream quality assurance check. After a positive feedback the raw ingredient string (here "Paprika, rot") is stored with the ingredient Paprika. Over time the data set contains several manifestations of one ingredient and enables better and more accurate search results. Over the long term systems knowledge base is a list of ingredient documents containing the universal name and possible different wordings for each ingredient. The performance of the system is discussed in chapter \ref{cha:chapter6}
+
 \textbf{Machine learning models}
 
 
 \section{Implementation of output adapter}
 
+The concept from section \ref{sec:componentsoutput} defined a toolset based component that provides the possibility of combining several output formats. Figure \ref{fig:output-adapter} illustrates three different output adapters:
+\begin{itemize}
+\item Feature Extractor
+\item JSON Serializer
+\item Log Appender
+\end{itemize}
 
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.4\textwidth]{output-adapter}\\
+  \caption{Overview of message flow in the output adapter}
+  \label{fig:output-adapter}
+\end{figure}
 
+The most impotent for a framework for automated feature extraction is clearly the Feature Extractor. The two further examples are serve the visualization purpose. In the proof of concept implementation the JSON Serializer Adapter is used for deliver the homogenized data for a quality assurance fronted. The Log appender is used for streaming the processed data into a standardized logging system, such as Logstash. Logstash is processing pipeline for bundling logs.
+\\\\
+The overall adaptability was achieved by the Akka stream API. Akka stream provides the ability of defining data streams, combining and splitting them. For the output adapter the latter was used. Via simple DSL\footnote{Domain-specific language is a abstraction of a programming language for a specific domain} for creating flow graphs of Akka streams. The listening \ref{lst:output} below. shows a reference implementation. The DSL of Akka streams is very intuitive and perfectly suitable for such a use case. It causes low programming overhead and promises fast exchange and extension of the adapter component. The source is again a Akka stream source reading from the underlying transportation layer. \textit{RecipeKafkaSource} again, only has do define the deserializer for the specific entity and the Kafka topic of recipes.
 
+\begin{lstlisting}[style=myScalastyle,label={lst:output}]
+val in = RecipeKafkaSource()
+val featureExtractorSink = RecipeFeatureExtractorSink()
+val jsonSink = JsonSink[Recipe]()
+val logAppenderSink = LogAppenderSink[Recipe]()
+val adapter = builder.add(Broadcast[Recipe](3))
 
+in ~> adapter ~> featureExtractorSink
+adapter ~> jsonSink
+adapter ~> logAppenderSink
+\end{lstlisting}
 
+The \textit{RecipeFeatureExtractorSink} finally creates feature vectors from a cleaned and stable recipe information entity. It is up to the demand of the developer which features are extracted. As feature engineering is not part of this work, details are not discussed here. The literature provides several approaches and ideas about feature engineering. 
+\\\\
+For the reference implementation binary features of the recipe ingredients were extracted. A binary feature vector is a vector only containing zeros and ones. If a specific attribute is present in the entity to represent, the corresponding field is set to one, otherwise zero. From an implementation aspect, the unified ingredient names where hashed to determine the the index within the the feature vector. This approach is reliable, as first, the possible manifestations of ingredients is finite, and second, the used hashing algorithm, here murmur-hash, returns a deterministic hash for each possible string.
 
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.4\textwidth]{bin-feature}\\
+  \caption{Binary feature vector for the ingredients: paprika, kartoffel and fisch}
+  \label{fig:bin-feature}
+\end{figure}
 
-
-
-
-
-
-
+Concluding it can be said, that the choice of the underlying container framework Akka stream as well as the programming language Scala plays well together with the domain of automated data processing. The available libraries and custom libraries reduced the implementation overhead for a processing pipeline for unification of semi-structured data. The idea of an additional abstraction layer on top of the data transfer component, Kafka and the Akka stream framework enables a simple adaption of the concrete framework implementation for different sources, entities and domains. The work is reused for the set up of a feature extraction pipelines for food products.

@@ -1,22 +1,58 @@
 \chapter{Evaluation\label{cha:chapter6}}
 
-In this chapter the implementation of Component X is evaluated. An example instance was created for every service. The following chapter validates the component implemented in the previous chapter against the requirements.
-\\
-\\
-Put some screenshots in this section! Map the requirements with your proposed solution. Compare it with related work. Why is your solution better than a concurrent approach from another organization?
+In this chapter the implementation of the automated feature extraction pipeline is evaluated. The re-usability and adaptability to different data sources outlined in the previous chapter is summarized and the applicability of the proposed framework assessed. Additionally we evaluate the quality of the out coming data, the quality assurance on code level as well as the scalability on throughput basis. 
 
-\section{Test Environment\label{sec:testenvir}}
+\section{Applicability of the proposed framework concept}
 
-Fraunhofer Institute FOKUS' Open IMS Playground was used as a test environment for the telecommunication services. The IMS Playground ...
-
-\section{Scalability\label{sec:scal}}
-
-Lorem Ipsum
-
-\section{Usability\label{sec:usab}}
-
-Lorem Ipsum
+The most evidence of applicability is given by the reference implementation outlined in detail in the previous chapter. This proof of concept shows that an stepwise approach of data homogenization and a final feature extraction is a solid concept. Providing a generalized library that can be utilized for different semi-structured information entities and in different domains increases the performance up to a high degree of automation for data unification. The framework allows to be extended on demand by further data sources, parsing steps or output adapters as defined in the requirements of chapter \ref{cha:chapter3}. The next chapter will give a general conclusion about the proposed framework.
 
 \section{Performance Measurements\label{sec:performance}}
 
-Lorem Ipsum
+Measuring the performance of the overall implementation is restricted due to the absence of an reference dataset. Depending on the desired quality of out coming data, which relates to the kind of features finally used, the quality requirements vary. 
+\\\\
+A more interesting an measurable index is the performance of single processing steps within the parsing pipeline. See figure \ref{fig:basicconcept} as reference. 
+\\\\
+For the evaluation of the learnability of the system a toy dataset is created and the performance of automated data cleansing by using a full-text search engine is evaluated. The toy dataset contained roughly 300 universal ingredients. Those where manually extracted from a dataset of circa 200 recipes and indexed\footnote{The process of loading documents in to Elasticsearch during which the inverted index is build internally.} using n-grams (specifically 3-grams up to 20-grams) in a local Elasticsearch setup. Raw ingredient strings extracted from the publicly available recipe section of the Kaufland website are used to verify the accuracy on hit rate. For evaluation of the performance more than 200 ingredients from Kaufland where manually mapped to the universal ingredient. 
+\\\\
+The performance is measured by averaging the index of the true value within the scored Elasticsearch search result. Meaning the cost of a miss increases linearly wit the distance to the top scored result. The search result is upper bounded by 15 results and the cost of of a not found element fixed by 16.  For instance when matching the raw ingredient \textit{"Paprika, rot}, the universal ingredient \textit{"rote Paprika"} occurs on index 3 of the result list, 3 is considered as the cost of the miss match. If \textit{"rote Paprika"} is not contained in the result list, 16 is set as the cost. The sum of all costs is averaged across test examples.
+\\\\
+On the initial run using 200 labeled ingredients and the above descried setup a average score of 1.83 was reached. This meas that the average offset from the top of the result list was less than 1. For comparison, if half on the universal ingredient is on index one, and half of the ingredient on index two, a average of 1.5 results. considering the fact, that the set of universal ingredients exceeds size of the toy dataset, 300, by far, this are very promising initial results. 
+
+A second run on an updated Elastic search index definitions, increased the average score by 20\%. Using 2-grams instead of 3-grams as the lower-bound for the ingredient index resulted in a average score of 1.74. This can be explained by the fact, that ingredients with 2 character names in German exists. Those are ignored by a index only using 3 or more grams.
+
+In a third run the toy dataset was extend in a way, such that each of the universal ingredient had exactly one further manifestation. Rerunning the performance evaluation as set up in the second run lead to an average score of 1.67. This number is the perfect prove for the learnability of the proposed feature extraction framework.
+
+\section{Test Environment\label{sec:testenvir}}
+
+Independent testing of components is a major aspect in software quality. The library components of the proposed framework where unit tested using the official scala-test framework. \textit{WordSpec} provides an very intuitive and human readable setup of tests on code level. Those assure the stability of the library on updates, bug fixes and implementation of further features. \\\\
+The system is very strongly connected to different database systems. The functioning of the different connectors, not only to the underlying data transfer layer also to data sources as MongoDB and the learning system with Elastic search must be ensured after maintenance work. 
+
+The independence of the system from actual running instances of the named databases is very important when it comes to automatized testing. The common approach to achieve the independence is the usage of embedded versions of the required database systems. Open source libraries for an embedded Kafka, embedded Elasticsearch and embedded MongoDB are used for unit and integration tests of the framework implementation.
+
+% https://github.com/manub/scalatest-embedded-kafka
+% https://github.com/allegro/embedded-elasticsearch
+% https://github.com/flapdoodle-oss/de.flapdoodle.embed.mongo
+
+\section{Scalability\label{sec:scal}}
+
+\subsection{Scalability on domain level}
+
+\subsection{Scalability on data throughput level}
+
+The introduction of this work gives insights of about the novel amount of data available nowadays. The choice of the container framework in section \ref{sec:env} pointed out that from this work of perspective not requirement for a technical scalability is defined. Having said this, 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

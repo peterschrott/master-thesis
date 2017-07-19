@@ -52,7 +52,7 @@ Possible parsing steps among others are:
 
 The abstraction of an parsing step must allow the connection to a second data source for potential data enrichment through lookups. Another obligatory feature is a initial loading of a user defined resource such as a mapping table or a model. For this type of application of the processing pipeline a asynchronous processing should be possible to avoid a blocking of the pipeline.
 
-\section{Concept of pluggable output adapters}
+\section{Concept of pluggable output adapters\label{sec:componentsoutput}}
 
 The pluggable output adapters are meant for further transformations of the generalized entity that results from the parsing pipeline. Based of different intents of using the homogenized data, a set of outputs is desired. This boils down to data formats that are required by the acutaly application downstream of the feature extraction framework. From a framework aspect the output adapter is similar to the input adapters. The concept differs in a deterministic input as well as output schema or a set of deterministic schemas, depending on the post-processing use cases. The input schema is analog to the final output schema of the parsing pipeline and due to the fact of a unified format within the overall framework does not produce additional development overhead. 
 
