@@ -19,12 +19,18 @@ Data in general, but also massive amounts of data, are only valuable if they are
 Over the last years specifications being as old as the computers itself find less and less supporters and therefor their compliance. Mainly to mention here are the database and application level. Developments according to Moore's law and constantly decreasing  costs of volatile memory are the enabler of that ongoing trend. Computational power and high memory resources permit nowadays a by far more chaotic fashion of information storage. To perform analysis on data for reasonable time and resource costs in the past, it was essential to hold data in a well defined schema, i.e. the structure of the information entity with meta information about its attributes and types, and unique storage format on file level. Modern data management solutions and databases loosened that strict demands tremendously. Schema-less and document-orientated database management systems allow information entities with a deviating set of attributes to be stored. Data management and data retrieval systems even allow documents of different file and storage formats to be maintained. This trend develops in the favor of the users on application side. Overhead on schema definitions, restrictions due to backward compatibility or synchronization of parties and stakeholders almost vanish. The new development is very well received in technical development and opens new challenges in different research areas.
 \\\\
 The drawbacks of the a development have since been discovered by mostly consumers of such chaotic data. Not only the contemporary style of handling and storing information has its disadvantages but also data which already come in a well defined schema often do not fulfill the required granularity and purity of data for above mentioned use cases. In such applications a high amount of manual work for quality assurance has to be invested. Under the consideration of a rich landscape of different information entity formats data cleansing by hand, review of know-how owners or restructuration is done. Data cleansing is the act of removing errors and solve inconsistencies in data to enhance their quality. This is only feasible on a low number of entities to be audited and becomes time and cost intense on big amounts of data. Initially claimed, that more powerful hardware resources even out the bumpy road is only true, if the the precision of the result must not meet a maximum. However, instances exist in which a best possible outcome on data analysis is indispensable. Exposure to end consumers, mathematical analysis or unification of a brought number of data sources are case that tend to demand the latter requirements to be met. 
-\\\\
-\textbf{User exposer of data:} A primary important aspect with regard to the need of clean data is the exposure to end users, for example in web shops or desktop applications. To make a service resilient against competitors it is fundamental to satisfy the most valuable resource, the end users. The paying customer who usually has a brought offer of services is most critical when it comes to functionality and appearance of the product. Insufficient information, unstructured layouts or poorly working features discourages a customer quickly. Those shortcomings can origin from problems in underlying data. E.g. product filters in a online shop do not apply correctly if the data representation in the target attributes is not groomed appropriately or characteristics are displayed in a inconsistent form. The data diversity in this case derives from, inter alia, different sources, e.g. different supplies or partners in an online shop.
-\\\\
-\textbf{Mathematical analysis:} For analysis of and calculation on messy data often a very high requirement of granularity and purity exists. In theoretical mathematics well defined sets of inputs and possible outputs for functions, the definition of algebraic structures and the scopes of algebraic axioms, or the consistency of vector spaces. This applies to for example techniques in the field of machine learning, especially to feature selection and feature engineering. Dimensions of feature vectors have to be assessed critically to avoid the 'course of dimensionality' and control their sparsity. Considering only subsets of data with sufficient quality will change results, e.g. on predictions based on a time series when certain time windows are removed due to the mentioned quality filters.
-\\\\
-\textbf{Unification of a brought number of data source:} There exist use cases and applications where it is indispensable to combine different data structures for the same entity from different sources. From a black-box point of view, a data aggregator only has one specific output but must combine a variety of source formats. Not only different information providers cause a data  heterogeneity but also the gathering of the data plays a significant role. Facts like: information storages and data warehouses grow over time while compromises are made; technical and domain specifications for data management are not completely fulfilled; schemas vary, are underspecified or interpreted individually, impede a strict policy for homogeneous data. Information retrieval systems such as filter-engines, search-engines or recommendation systems face the stated problem and provide solutions to it. Some of the solutions imply a balance of manual configuration overhead on one side or reduced output quality on the other side. 
+
+\subsection{User exposer of data}
+
+A primary important aspect with regard to the need of clean data is the exposure to end users, for example in web shops or desktop applications. To make a service resilient against competitors it is fundamental to satisfy the most valuable resource, the end users. The paying customer who usually has a brought offer of services is most critical when it comes to functionality and appearance of the product. Insufficient information, unstructured layouts or poorly working features discourages a customer quickly. Those shortcomings can origin from problems in underlying data. E.g. product filters in a online shop do not apply correctly if the data representation in the target attributes is not groomed appropriately or characteristics are displayed in a inconsistent form. The data diversity in this case derives from, inter alia, different sources, e.g. different supplies or partners in an online shop.
+
+\subsection{Mathematical analysis} 
+
+For analysis of and calculation on messy data often a very high requirement of granularity and purity exists. In theoretical mathematics well defined sets of inputs and possible outputs for functions, the definition of algebraic structures and the scopes of algebraic axioms, or the consistency of vector spaces. This applies to for example techniques in the field of machine learning, especially to feature selection and feature engineering. Dimensions of feature vectors have to be assessed critically to avoid the 'course of dimensionality' and control their sparsity. Considering only subsets of data with sufficient quality will change results, e.g. on predictions based on a time series when certain time windows are removed due to the mentioned quality filters.
+
+\subsection{Unification of a brought number of data source} 
+
+There exist use cases and applications where it is indispensable to combine different data structures for the same entity from different sources. From a black-box point of view, a data aggregator only has one specific output but must combine a variety of source formats. Not only different information providers cause a data  heterogeneity but also the gathering of the data plays a significant role. Facts like: information storages and data warehouses grow over time while compromises are made; technical and domain specifications for data management are not completely fulfilled; schemas vary, are underspecified or interpreted individually, impede a strict policy for homogeneous data. Information retrieval systems such as filter-engines, search-engines or recommendation systems face the stated problem and provide solutions to it. Some of the solutions imply a balance of manual configuration overhead on one side or reduced output quality on the other side. 
 \\\\
 XY claims that 80\% of effort in data analysis is devoted to data pre-processing and feature selection. That number indicates a large potential for maximizing the overall gain in the field of data processing. From the above addressed problems it can be seen that a large optimization leeway for automated data pre-processing exists. This space for optimization is considered as academic playground that motivates this work. Shifting the focus from data cleansing to actual data applications will be an enabler for quicker insight in data and lower the barrier for the development of data driven products.
 
@@ -49,25 +55,16 @@ The overall target is to find a framework based solution that provides a tool se
 
 \section{Outline\label{sec:outline}}
 
-The 'structure' or 'outline' section gives a brief introduction into the main chapters of your work. Write 2-5 lines about each chapter. Usually diploma thesis are separated into 6-8 main chapters. 
-\\
-\\
-\noindent This work is separated into 7 chapters.
-\\
-\\
-\textbf{Chapter \ref{cha:chapter2}} is usually termed 'Related Work', 'State of the Art' or 'Fundamentals'. Here you will describe relevant technologies and standards related to your topic. What did other scientists propose regarding your topic? This chapter makes about 20-30 percent of the complete thesis.
-\\
-\\
-\textbf{Chapter \ref{cha:chapter3}} analyzes the requirements for your component. This chapter will have 5-10 pages.
-\\
-\\
-\textbf{Chapter \ref{cha:chapter4}} is usually termed 'Concept', 'Design' or 'Model'. Here you describe your approach, give a high-level description to the architectural structure and to the single components that your solution consists of. Use structured images and UML diagrams for explanation. This chapter will have a volume of 20-30 percent of your thesis.
-\\
-\\
-\textbf{Chapter \ref{cha:chapter5}} describes the implementation part of your work. Don't explain every code detail but emphasize important aspects of your implementation. This chapter will have a volume of 15-20 percent of your thesis.
-\\
-\\
-\textbf{Chapter \ref{cha:chapter6}} is usually termed 'Evaluation' or 'Validation'. How did you test it? In which environment? How does it scale? Measurements, tests, screenshots. This chapter will have a volume of 10-15 percent of your thesis.
-\\
-\\
-\textbf{Chapter \ref{cha:chapter7}} summarizes the thesis, describes the problems that occurred and gives an outlook about future work. Should have about 4-6 pages.
+In this section we well have a short overview of the chapters in this thesis. This work is separated into 7 chapters.
+\\\\
+\textbf{Chapter \ref{cha:chapter2}} covers aspects about fundamentals and related work. As state above the thesis follows a problem driven approach, therefor the underlying structure and problems of modern data storage concepts are analyzed, broken down in subproblems and finally assessed. Additionally relevant technologies are named and discussed.
+\\\\
+\textbf{Chapter \ref{cha:chapter3}} uses the findings of chapter 2 and develops requirements on the proposed framework. An additional explanation of each individual requirement is given to demonstrate the necessity of it.
+\\\\
+\textbf{Chapter \ref{cha:chapter4}} uses the specifications and requirements from chapter 3 and develops in a top down approach an concept for a automated framework for feature extraction. Different aspects considering the problems of chapter 2 are covered and abstract solutions as concepts ans specifications are introduced. The concept aims for a subsequent reference implementation of the suggested framework.
+\\\\
+\textbf{Chapter \ref{cha:chapter5}} describes the implementation of the suggested framework. A research on underlying technologies, the choice of a implementation language as well as structural decisions are conducted. Components on different layers are explained and applied patterns discussed. 
+\\\\
+\textbf{Chapter \ref{cha:chapter6}} Evaluates the findings and outcomes of the precedent three chapters. The discussion of the applicability of the proposed framework is lead under the aspect of the reference implementation. The concepts are challenged and cross-checked for their  practicability under a technical perspective.
+\\\\
+\textbf{Chapter \ref{cha:chapter7}} summarizes the thesis, describes the problems that occurred and gives an outlook about future work.
