@@ -1,10 +1,10 @@
 \chapter{Requirements\label{cha:chapter3}}
 
-After defining the main problems and objectives to be handled in this work in the previous chapter, this chapter defines the requirements for an automated system that extracts well defined characteristics from heterogeneous data. The requirements are engineered from a top down view.
+After defining the primary problems and objectives that are handled in this work, this chapter defines the requirements for an automated system that extracts well defined characteristics from heterogeneous data. The requirements are engineered from a top down view.
 
 \section{Overview\label{sec:reqoverview}}
 
-The primary goal of this work is to design an automated system. Any type of automated system require a interaction point for quality check and quality assurance. Furthermore it is required by the system to evolve over time such that the performance maximizes and manual interactions can be minimizes. This also plays a role when it comes to adapt additional data sources. The maintenance effort on such an interference must kept at a minimum, as well as on development side and quality assurance side. The framework should be designed as such, that a continuous processing of semi-structured data is possible at all time. Hence, it must be fault tolerance towards unexpected input and also provide a interaction point to assure processing of faulty data.
+The primary goal of this work is to design an automated system. Any type of automated system require a interaction point for quality check and quality assurance. Furthermore it is required by the system to evolve over time such that the performance maximizes and manual interactions can be minimizes. This also plays a role when it comes to adapt additional data sources. The maintenance effort on such an interference must kept at a minimum, as well as on development side and quality assurance side. Further, the framework should be designed as such that a continuous processing of semi-structured data is possible at all time. Hence, it must be fault tolerance towards unexpected input and also provide a interaction point to assure processing of faulty data.
 \\\\
 The following points summarize the requirements for the proposed framework:
 \begin{itemize}
@@ -17,27 +17,22 @@ The following points summarize the requirements for the proposed framework:
 
 \section{High degree of automation}
 
-A system meeting the demands of high degree of automation defines it self as a system that delivers data on a continuous bases with stable quality and minimal manual interactions. Here we can distinguish between manual interactions on data preparation and quality check. Especially on sensitive data manual overhead for quality assurance can not be prevented. Nevertheless the finalizing operation must kept at a minimum. Hence the requirement here is a interaction point that ensures the latter demand. The second requirement in this paragraph is continuous pre-processing of newly incoming data.
+A system meeting the demands of high degree of automation defines it self as a system that delivers data on a continuous bases with stable quality and minimal manual interactions. Here we can distinguish between manual interactions on data preparation and quality check. Especially on dealing with sensitive data manual overhead for quality assurance can not be prevented. Nevertheless the finalizing operation must kept at a minimum. Hence, the requirement here is a interaction point that ensures the latter demand. The second requirement in this paragraph is continuous preparation of newly incoming data.
 
 \section{Easy adaptability of data sources}
 
-As already stated in chapter \ref{cha:chapter1} the amount of data is rapidly growing every day. This also implies of newly emerging data sources on a high frequent basis. This fact leads to one requirement of a system that automatically extracts information characteristics is the adaptability to additional data sources. This requirement ensures the gathering of a wide range of data leading to a versatile data basis, which is indispensable for applications like content delivery platforms and recommendation engines.
+As already stated in chapter \ref{cha:chapter1} the amount of data is rapidly growing every day. New data sources emerge on a high frequent basis. This fact yields the requirement for a system that automatically extracts information characteristics after simple adaptation. This requirement ensures the gathering of a wide range of data leading to a versatile data basis. This indispensable for applications like content delivery platforms and recommendation engines.
 
 \section{Self learning system}
 
-Continuous delivery of high quality data features can only be realized if the system adapts to trends and learns from feedback of quality assurance. This is a very natural way of increasing performance. Capturing all possible manifestations of data i.e. wordings, semantics or ontologies, at specification phase is not desirable and truly not possible. Hence, it is required for the system to extend its definitions and widen the underlying knowledge base. 
+Continuous delivery of high quality data features can only be realized if the system adapts to trends and learns from feedback of quality assurance. This is a very natural way of increasing performance. Capturing all possible manifestations of data i.e. wordings, semantics or ontologies, at specification phase is not desirable and truly not possible. Hence, it is required for the framework to extend its definitions and widen the underlying knowledge base on a continuous basis. 
 
 \section{Error resistant and processing guarantees \label{sec:error}}
 
-This requirement aims for fault tolerance on domain level. As already outlined, discarding faulty data will result in faulty results. Compare paragraph 'Mathematical analysis' in section \ref{sec:moti}. But on the other hand, implementing a system that can process 100\% of messy information to well defined data is an unreachable goal. Unexpected and faulty information entities occur in every system on a regular basis. Due to that, the Framework must be designed such that processable data are not ignored nor discarded. The requirement is to define a technique that guarantees the capturing of all information entities.
+This requirement aims for fault tolerance on domain level. As already outlined, discarding faulty data will deliver faulty results. Compare paragraph 'Mathematical analysis' in section \ref{sec:moti}. But on the other hand, designing a framework that can process 100\% of messy information to well defined data is hardly possible. Unexpected and faulty information entities occur in every system on a regular basis. Due to that, the framework must be designed such that not processable data are not ignored nor discarded. The requirement is to define a approach that guarantees the capturing of all information entities.
 
 \section{Schematizing data output}
 
-For professional data analysis it is essential that the resulting data comply with and generalized, predefined schema. As explained in section \ref{sec:unification} globally valid and well defined schemas on top of of standardized data is the requirement for data processing, visualization and analysis. For different data applications different schemas are necessary. Therefor the last requirement of the proposed framework is a convenient mechanism to exchange or extend the output formats. 
-
-
-
-
-
-
-
+For professional data analysis it is essential that the resulting data comply with an generalized, predefined schema. As explained in section \ref{sec:unification} globally valid and well defined schemas on top of of standardized data is the requirement for data processing, visualization and analysis. For different data applications different schemas are necessary. Therefor the last requirement of the proposed framework is a convenient mechanism to exchange or extend the output formats. The requirement for a feature representation is thereby covered here.
+\\\\
+The six stated requirements are the result of the problem driven approach in this thesis. They provide the basis for the next chapters and are revisited during the final conclusion.
