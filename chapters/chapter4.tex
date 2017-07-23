@@ -26,17 +26,7 @@ The pipeline concept facilitates the handling of single and multiple source prob
 
 \section{Concept and use of the container framework \label{sec:containerframework}}
 
-Many data processing frameworks are available nowadays. Especially the trend of big data emerged frameworks on different abstraction layers. Most of them have their foundations in widely known concept of Map Reduce
-% map reduce
-or any of its descendants. Promising Open source examples in this case are among others Apache Flink
-% flink
-, Apache Samza
-% samza
-, Apace Spark
-% spark
-or Kafak Streams
-%
-. Conceptual the container framework hides away underlying data transportation and enables the use of user defined code and user defined functions. At this place the in the previous paragraph defined modules can introduced. This abstract concept will allow to exchange the underlying container framework as well as consecutive modules. In the next chapter, chapter \ref{cha:chapter5}, after evaluation the best suitable container frameworks is determined.
+Many data processing frameworks are available nowadays. Especially the trend of big data emerged frameworks on different abstraction layers. Most of them have their foundations in widely known concept of Map Reduce\cite{dean_ghemawat_2008} or any of its descendants. Promising Open source examples in this case are among others Apache Flink\cite{flink_2017}, Apache Samza\cite{samza_2017}, Apace Spark\cite{spark_2017} or Kafak Streams\cite{kafka_2017}. Conceptual the container framework hides away underlying data transportation and enables the use of user defined code and user defined functions. At this place the in the previous paragraph defined modules can introduced. This abstract concept will allow to exchange the underlying container framework as well as consecutive modules. In the next chapter, chapter \ref{cha:chapter5}, after evaluation the best suitable container frameworks is determined.
 
 \section{Concept of the input adapter \label{sec:inputadapter}}
 
@@ -76,4 +66,4 @@ From the requirements in section \ref{sec:error} a concept for error persistence
 
 The quality assurance component of the automated framework is and overreaching element. The injection of of quality concerns right after parsing like manual crosschecks are facilitated. The in the error pipeline arising entities (see section \ref{sec:errorpipeline}) need a singular point of handling. Additionally the introduction of manually generalized data satisfies the need for the required processing guarantees. Those data are taken from the error pipeline. 
 
-Other tasks to be performed considering quality aspects are among others the control of the ongoing learning process, configuration of parsing rules and updating of mapping tables. The system needs to be defined such that on certain interaction point for all modules is available.  
+Other tasks to be performed considering quality aspects are among others the control of the ongoing learning process, configuration of parsing rules and updating of mapping tables. The system needs to be defined such that on certain interaction point for all modules is available.

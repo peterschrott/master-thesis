@@ -2,14 +2,9 @@
 
 \section{Fundamentals in data unification\label{sec:unification}}
 
-Electronic data processing underlies applied mathematics and relies therefor on data of a certain, deterministic structure. In mathematics and computer science such rules of data representation are called canonical or normal form. Canonicalization is the discipline of transforming data of possible different forms of representation into a standardized form. An illustrative example of canonicalization is the representation of a boolean variable described in the XML schema type definition
-% ref
-. By definition a boolean variable supports binary logic representation, meaning that some state or flag can either be true or false. The set of possible literals might contain: 1, 0, true and false. The XML schema type definition specifies the canonical form of boolean as true and false, whereas 1 can be mapped to true and respectively 0 to false. Data in a normalized form can be transfered in any other form.
+Electronic data processing underlies applied mathematics and relies therefor on data of a certain, deterministic structure. In mathematics and computer science such rules of data representation are called canonical or normal form. Canonicalization is the discipline of transforming data of possible different forms of representation into a standardized form. An illustrative example of canonicalization is the representation of a boolean variable described in the XML schema type definition\cite{xml_schema_2017}. By definition a boolean variable supports binary logic representation, meaning that some state or flag can either be true or false. The set of possible literals might contain: 1, 0, true and false. The XML schema type definition specifies the canonical form of boolean as true and false, whereas 1 can be mapped to true and respectively 0 to false. Data in a normalized form can be transfered in any other form.
 \\\\
-The foundation of the idea of storing large data in a reusable format were captured by Edgar F. Codd in 1970 with his proposal for database normalization
-% 	A relational model of data for large shared data banks
-. The concept behind the proposal is to break the information down into entities with attributes and describe relations among them. A second and third version of database normalization followed and proposed a higher granularity and introduced relations between entities. The technique of data normalization is state of the art in rational database systems. Such a system stores data in a table format, where rows correspond to entities and columns to their attributes. We consider the entities \textit{person} and \textit{address} as an example. The \textit{person} entity holds the attributes \textit{surname} and \textit{name}, the \textit{address} entity the attributes \textit{street}, \textit{zip code} and \textit{city}. In addition the \textit{person} entity has a reference to the \textit{address} entity, thus a an \textit{address} can be related to a person. This relation is indicated by a unique key. Compare figure \ref{fig:rm}. Rational database systems enforces the entity definition, i.e. its schema and the predefined data types, and the relationship constraints strictly. Relationship modeling plays also a fundamental role in other data base and data management systems but are often not enforced on system level.
-% ref NoSQL and SQL Data Modeling: Bringing Together Data, Semantics, and Software (chap 17)
+The foundation of the idea of storing large data in a reusable format were captured by Edgar F. Codd in 1970 with his proposal for database normalization\cite{codd_1970}. The concept behind the proposal is to break the information down into entities with attributes and describe relations among them. A second and third version of database normalization followed and proposed a higher granularity and introduced relations between entities. The technique of data normalization is state of the art in rational database systems. Such a system stores data in a table format, where rows correspond to entities and columns to their attributes. We consider the entities \textit{person} and \textit{address} as an example. The \textit{person} entity holds the attributes \textit{surname} and \textit{name}, the \textit{address} entity the attributes \textit{street}, \textit{zip code} and \textit{city}. In addition the \textit{person} entity has a reference to the \textit{address} entity, thus a an \textit{address} can be related to a person. This relation is indicated by a unique key. Compare figure \ref{fig:rm}. Rational database systems enforces the entity definition, i.e. its schema and the predefined data types, and the relationship constraints strictly. Relationship modeling plays also a fundamental role in other data base and data management systems but are often not enforced on system level\cite{hills_2016}.
 
 \begin{figure}[htb]
   \centering
@@ -19,9 +14,7 @@ The foundation of the idea of storing large data in a reusable format were captu
 
 In contrast to relational databases, normalization is not mandatory in non rational, also call no SQL databases. This kind of databases are mostly used for web applications and in the field of big data. The same applies to entity relationships as the core concept of no SQL databases aims for de-normalized data storage. Considering the person-address example from above, all attributes of a person entity are stored with it, including its address. No SQL databases exist with a schema-leas approach, meaning there is no predefinition of attributes and corresponding data types. This also enables changes of the schema over time in the cardinality of attributes as well as their type. In the person-address example this means that the address is a non mandatory field and the zip code can be stored as number or string. Document-oriented databases, key-value storages and graph databases are the three most common no SQL databases.  Limitations are only set by the user's definition and imagination. This flexibility enormously supports the initially claimed chaotic data storage, though it is often limited by schema definitions on domain level. 
 \\\\
-Schemas help to maintain a understandable structure of data and underly a certain format. They add determinism to data and make them less error prone. Schemas vary in their strictness, also serialization formats allow different levels of precision. CSV, JSON, XML and Protocol Buffers are a selection of the most commonly used formats for data interchange. From a top down view, an entity is defined by its attributes. When nesting is supported an entity can contain entities as attributes. In addition it is possible to define whether a field is mandatory or not. On attribute level the most common specification is the data type. The information if a field can be unset, i.e. nullable, can be provided too. Data types are usually not unique through different schema formats, but mappings usually exist. For a higher quality of data the individual type of an attribute can be restricted through ranges or enumerations, e.g. the value of field score can only accept integers from 1 to 5. Furthermore it is to distinguish between externally defined and self-contained schemas. External definition or external enforcement is the approach that drives rational databases and schema-full data storages. Is the schema woven with the actual data, one can speak about self-contained schemas. Schema-less storages benefit from self-contained schemas. Using such, data integrity it is for the application level to maintain. As reference and further reading the book Database Schema Evolution and Meta-Modeling
-% ref
-provides deeper insights.
+Schemas help to maintain a understandable structure of data and underly a certain format. They add determinism to data and make them less error prone. Schemas vary in their strictness, also serialization formats allow different levels of precision. CSV, JSON, XML and Protocol Buffers are a selection of the most commonly used formats for data interchange. From a top down view, an entity is defined by its attributes. When nesting is supported an entity can contain entities as attributes. In addition it is possible to define whether a field is mandatory or not. On attribute level the most common specification is the data type. The information if a field can be unset, i.e. nullable, can be provided too. Data types are usually not unique through different schema formats, but mappings usually exist. For a higher quality of data the individual type of an attribute can be restricted through ranges or enumerations, e.g. the value of field score can only accept integers from 1 to 5. Furthermore it is to distinguish between externally defined and self-contained schemas. External definition or external enforcement is the approach that drives rational databases and schema-full data storages. Is the schema woven with the actual data, one can speak about self-contained schemas. Schema-less storages benefit from self-contained schemas. Using such, data integrity it is for the application level to maintain. As reference and further reading the book Database Schema Evolution and Meta-Modeling\cite{balsters_brock_conrad_2006} provides deeper insights.
 \\\\
 Summarizing we can say that the canonical form standardizes data representation, whereas normalization and schema definition add some additional information to it. A predefined cardinality of attributes as well as the respective types and value ranges can be considered as meta-data and make the data therefor more understandable by human as well as by machines. 
 
@@ -36,25 +29,13 @@ In data driven applications the data are commonly fetched from a source. Sources
   \item Message queues\\
 \end{itemize}
 
-\noindent\textbf{Purely file based} have almost no restrictions regarding the information format. The format is often defined on domain level. Human readable formats like CSV, JSON, XML or custom formats are some of the most common data structures. Additionally binary formats exists but are more often used in closed systems. Java serializable objects
-% ref
-, protocol buffers
-% ref 
-or BSON 
-% ref
-are some examples for binary formats.
+\noindent\textbf{Purely file based} have almost no restrictions regarding the information format. The format is often defined on domain level. Human readable formats like CSV, JSON, XML or custom formats are some of the most common data structures. Additionally binary formats exists but are more often used in closed systems. Java serializable objects\cite{serializable_objects_2017}, protocol buffers\cite{protocol_buffers_2017} or BSON\cite{bson_2017} are some examples for binary formats.
 \\\\
 \textbf{Database systems} provide more boundaries when it comes to the data format. Database management system can be divided in schema-oriented and schema-less systems. The former, by definition, enforces a certain schema for individual information entities. In rational database systems the table schema must be predefined and is enforced by the DBMS. Also in other systems like key-value stores the encoding format of the value can be enforced. Schema-less systems, often document-oriented, bring more flexibility. The encoding format is defined per type of information entities. The actual schema, i.e. definition of attributes, is not enforced in such systems.
 \\\\
-\textbf{REST interfaces} deliver data in most cases in human readable encoding format
-% ref rest
-. Some exception exist that expose binary information. The so called media type, also MIME type or content type, is officially standardized by the Internet Assigned Numbers Authority (IANA)
-% ref
-. Dedicated content delivery APIs mostly utilize pain text, JSON or XML. For memory reduction zipped data are shipped. 
+\textbf{REST interfaces} deliver data in most cases in human readable encoding format\cite{rest_2017}. Some exception exist that expose binary information. The so called media type, also MIME type or content type, is officially standardized by the Internet Assigned Numbers Authority (IANA)\cite{media_types_2017}. Dedicated content delivery APIs mostly utilize pain text, JSON or XML. For memory reduction zipped data are shipped. 
 \\\\
-\textbf{Web sockets} are originally designed for the communication between browsers and web servers and lower network layer, TCP, as REST interfaces for data exchange
-% ref ws
-. Projects exists where web sockets are used for data transfer and enables a streaming unlike REST, which works on a batch basis. Regarding data formats, web sockets apply similarly loose restrictions regarding formats as file based data sources does.
+\textbf{Web sockets} are originally designed for the communication between browsers and web servers and lower network layer, TCP, as REST interfaces for data exchange\cite{websocket_2017}. Projects exists where web sockets are used for data transfer and enables a streaming unlike REST, which works on a batch basis. Regarding data formats, web sockets apply similarly loose restrictions regarding formats as file based data sources does.
 \\\\
 \textbf{Message queues} are old techniques but embrace over the last years enormously. The trends shifts towards data streaming and directly process them rather to store data over the long-term on middle-ware layer. Often used for connecting systems, message queues do most often not enforce a specific data formats also similar to file based sources.
 
@@ -66,9 +47,7 @@ are some examples for binary formats.
   \caption{Categorization of data quality problems}\label{fig:qualityproblems}
 \end{figure}
 
-In this section digitally available data are analyzed with respect to their quality as well as considering their source. Figure \ref{fig:qualityproblems} illustrates a categorization of the data quality issues into four sub problems. The breakdown shows that the devision correlates with the above stated classification of data storage principles. Therefor a general distinction between single and multi source problems is possible. In both categories a distinction on entity level can be made. For reference compare the literature
-% ref Data Cleaning: Problems and Current Approaches
-.
+In this section digitally available data are analyzed with respect to their quality as well as considering their source. Figure \ref{fig:qualityproblems} illustrates a categorization of the data quality issues into four sub problems. The breakdown shows that the devision correlates with the above stated classification of data storage principles. Therefor a general distinction between single and multi source problems is possible. In both categories a distinction on entity level can be made. For reference compare the literature\cite{rahm_hai_do_2017}.
 
 \subsection{Single source problems}
 
@@ -115,11 +94,7 @@ All problems from a single source environment can be transfered to a multi sourc
 
 One big challenge in data source fusion is a different degree of normalization or granularity of data. Highly depending on the use case the data are collected for, attributes are broken down into different abstraction levels or not. For that reason one attribute in one source can correspond to two or more attributes in a second source. Depending on the storage technology that is used the same information are de-normalize, i.e. one entity captures all information, or completely normalized, i.e. split up into two entities. Row one in Table \ref{tab:multisource} shows three information entities that basically contain the same information but in different forms of normalization. Normalization of fields requires in some cases significant domain knowledge. A well known problem is the parsing of addresses, especially street names and house numbers as they both can contain numeric and alphanumeric characters. From an automation point of view it is impossible to perform accurate splitting of that fields. This is a crucial point if the desired output format requires a higher degree of normalization than some of the underlying sources can provide. 
 
-Section \ref{sec:unification} provided an overview of different data formats. Every one has its on semantic and characteristics. A straight forward aggregation among two data formats is barely possible. For instance, comparing the JSON
-% ref json.org
-format with CSV shows, the first supports nesting of entities the other not. XML and JSON on the other hand support both nesting
-% ref XML Schema Part 2: Datatypes Second Edition
-but distinguish in incompatible data types, as JONS for instance can not represent long integers, whereas XML supports this data type.
+Section \ref{sec:unification} provided an overview of different data formats. Every one has its on semantic and characteristics. A straight forward aggregation among two data formats is barely possible. For instance, comparing the JSON\cite{json_2017} format with CSV shows, the first supports nesting of entities the other not. XML and JSON on the other hand support both nesting\cite{xml_2017} but distinguish in incompatible data types, as JONS for instance can not represent long integers, whereas XML supports this data type.
 
 Row two in table \ref{tab:multisource} shows an example of different schema definition in terms of attribute naming. Fields containing equal information are annotated by a different name. In this example the fields \textit{city} and \textit{town} hold the home town of the person captured. This heterogeneity can also be the source of usage of different languages, e.g. American English and British English. 
 
@@ -173,11 +148,3 @@ The main focus in this work will be on unifying data for automated feature extra
 As second aspect differing levels of normalization are in the focus of this thesis. This problem is considered as significant as mainly information from modern storage systems, e.g. schema-less databases, are to be analyzed as they make up a significant amount of latest data in web applications.
 \\\\
 The third an last main focus lies on problems towards different manifestations. Especially categories and labels for data are very important in modern machine learning approaches. Features extracted from this kind of information provide value in applications like predictions and recommendations.
-
-\section{Related Literature and Technologies \label{sec:tech}}
-
-% http://dl.acm.org/citation.cfm?id=1541883&CFID=963228341&CFTOKEN=32205688
-
-This section describes relevant technologies, starting with X followed by Y, concluding with Z.
-
-* ETL
